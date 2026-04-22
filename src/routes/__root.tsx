@@ -29,13 +29,13 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GelStack — Lee Filters Combination Finder" },
+      { title: "LightMix Pro — Lee Filters Combination Finder" },
       {
         name: "description",
         content:
-          "Find practical Lee Filters gel combinations that approximate any target color. Subtractive stacking simulator for theatre lighting technicians.",
+          "LightMix Pro: find practical Lee Filters gel combinations that approximate any target color. Subtractive stacking simulator for theatre lighting technicians.",
       },
-      { property: "og:title", content: "GelStack — Lee Filters Combination Finder" },
+      { property: "og:title", content: "LightMix Pro — Lee Filters Combination Finder" },
       {
         property: "og:description",
         content:
