@@ -29,14 +29,20 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "GelStack — Lee Filters Combination Finder" },
+      {
+        name: "description",
+        content:
+          "Find practical Lee Filters gel combinations that approximate any target color. Subtractive stacking simulator for theatre lighting technicians.",
+      },
+      { property: "og:title", content: "GelStack — Lee Filters Combination Finder" },
+      {
+        property: "og:description",
+        content:
+          "Recreate missing lighting gels by stacking the ones you have. Subtractive color math, ΔE accuracy and brightness loss for every suggestion.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -52,11 +58,11 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-background text-foreground antialiased">
         {children}
         <Scripts />
       </body>
