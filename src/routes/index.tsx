@@ -42,12 +42,14 @@ function GelStackApp() {
 
   const matches = useMemo<Match[]>(() => {
     const inv = advanced && inventory.size > 0 ? Array.from(inventory) : null;
-    return findMatches(targetHex, {
+    return findMatches({
+      targetGelNumber: mode === "gel" ? targetGelNum : undefined,
+      targetHex: mode === "custom" ? targetHex : undefined,
       maxStack,
       inventory: inv,
       topN: 12,
     });
-  }, [targetHex, maxStack, advanced, inventory]);
+  }, [mode, targetGelNum, targetHex, maxStack, advanced, inventory]);
 
   const filteredGels = useMemo(() => {
     const q = search.trim().toLowerCase();
