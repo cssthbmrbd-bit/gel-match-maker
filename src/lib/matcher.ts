@@ -1,20 +1,19 @@
 // Gel combination matching engine.
 //
-// Given a target color (HEX), search single gels and 2- or 3-gel stacks
-// for combinations whose stacked transmittance best matches the target.
+// Searches single gels and 2- or 3-gel stacks for combinations whose
+// stacked transmittance best matches a target color.
 //
-// Score combines:
-//   - ΔE (Lab) accuracy
-//   - brightness-loss penalty (don't suggest combos that kill the light)
+// Score = ΔE accuracy + brightness-loss penalty.
 
-import { GELS, type Gel } from "./gels";
+import { GELS, GEL_MAP, type Gel } from "./gels";
 import {
-  hexToLinear,
   linearToLab,
   deltaE76,
   stackGels,
   linearToHex,
   luminance,
+  gelTransmittance,
+  hexToLinear,
   type RGB,
 } from "./color";
 
@@ -23,47 +22,50 @@ export type Match = {
   resultHex: string;
   resultLinear: RGB;
   deltaE: number;
-  brightness: number; // 0..1 relative luminance after stacking
-  score: number; // lower = better
+  brightness: number;
+  score: number;
 };
 
 export type MatcherOptions = {
+  /** Target as a Lee gel number, when matching a Lee color directly. */
+  targetGelNumber?: string;
+  /** Target as a custom HEX (sRGB), when no Lee gel applies. */
+  targetHex?: string;
   maxStack: 1 | 2 | 3;
-  inventory?: string[] | null; // gel numbers; if null/undefined, use full catalog
-  minBrightness?: number; // discard combos darker than this (0..1)
+  inventory?: string[] | null;
+  minBrightness?: number;
   topN?: number;
 };
 
-/**
- * Combined score: ΔE plus a soft penalty when the stacked light gets
- * too dim. Tuned so that a combo losing 80% of the light pays roughly
- * the same cost as +15 ΔE.
- */
 function score(deltaE: number, brightness: number): number {
-  // Brightness penalty grows non-linearly as light gets crushed.
   const dim = Math.max(0, 1 - brightness);
   const brightnessPenalty = Math.pow(dim, 2) * 25;
   return deltaE + brightnessPenalty;
 }
 
-export function findMatches(
-  targetHex: string,
-  opts: MatcherOptions,
-): Match[] {
-  const { maxStack, inventory, minBrightness = 0.02, topN = 12 } = opts;
+/** Get target as a linear-RGB transmittance, preferring measured xyY. */
+function resolveTargetLinear(opts: MatcherOptions): RGB {
+  if (opts.targetGelNumber && GEL_MAP[opts.targetGelNumber]) {
+    return gelTransmittance(GEL_MAP[opts.targetGelNumber]);
+  }
+  return hexToLinear(opts.targetHex ?? "#ffffff");
+}
+
+export function findMatches(opts: MatcherOptions): Match[] {
+  const { maxStack, inventory, minBrightness = 0.005, topN = 12 } = opts;
 
   const pool: Gel[] =
     inventory && inventory.length > 0
       ? GELS.filter((g) => inventory.includes(g.number))
       : GELS;
 
-  const targetLinear = hexToLinear(targetHex);
+  const targetLinear = resolveTargetLinear(opts);
   const targetLab = linearToLab(targetLinear);
 
   const results: Match[] = [];
 
   const consider = (gels: Gel[]) => {
-    const stacked = stackGels(gels.map((g) => g.hex));
+    const stacked = stackGels(gels);
     const bright = luminance(stacked);
     if (bright < minBrightness) return;
     const lab = linearToLab(stacked);
@@ -90,12 +92,12 @@ export function findMatches(
     }
   }
 
-  // Triples — pruned: only build on top of the best ~40 pairs
+  // Triples — pruned: only build on top of best ~50 pairs
   if (maxStack >= 3) {
     const bestPairs = [...results]
       .filter((m) => m.gels.length === 2)
       .sort((a, b) => a.score - b.score)
-      .slice(0, 40);
+      .slice(0, 50);
     for (const pair of bestPairs) {
       for (const c of pool) {
         consider([...pair.gels, c]);
@@ -103,7 +105,6 @@ export function findMatches(
     }
   }
 
-  // Sort and dedupe by gel-number signature
   results.sort((a, b) => a.score - b.score);
   const seen = new Set<string>();
   const unique: Match[] = [];
