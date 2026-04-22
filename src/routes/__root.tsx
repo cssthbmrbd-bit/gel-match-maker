@@ -43,6 +43,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "LightMix Pro — Lee Filters Combination Finder" },
+      { name: "description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
+      { property: "og:description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
+      { name: "twitter:description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6d581c15-7dab-4a0a-afaf-0586043f257f/id-preview-f59a819c--2e215ec7-fc7d-4eea-a9de-2d00e7818688.lovable.app-1776877275265.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6d581c15-7dab-4a0a-afaf-0586043f257f/id-preview-f59a819c--2e215ec7-fc7d-4eea-a9de-2d00e7818688.lovable.app-1776877275265.png" },
     ],
     links: [
       {
