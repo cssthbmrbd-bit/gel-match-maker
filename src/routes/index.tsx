@@ -21,7 +21,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { useFavorites, favoriteKey } from "@/hooks/use-favorites";
-import { useInventory, COMMON_GELS } from "@/hooks/use-inventory";
+import { useInventory } from "@/hooks/use-inventory";
 
 export const Route = createFileRoute("/")({
   component: GelStackApp,
