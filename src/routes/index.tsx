@@ -283,39 +283,7 @@ function GelStackApp() {
         </section>
 
         {/* Right: results */}
-        <section>
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight">
-                Suggested combinations
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Ranked by ΔE accuracy with brightness penalty
-              </p>
-            </div>
-            <Badge variant="outline" className="font-mono">
-              {matches.length} results
-            </Badge>
-          </div>
-
-          {matches.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-border/60 p-12 text-center text-sm text-muted-foreground">
-              No combinations found. Try increasing max stack size or adding
-              more gels to your inventory.
-            </div>
-          ) : (
-            <ul className="grid gap-3">
-              {matches.map((m, i) => (
-                <ResultCard
-                  key={m.gels.map((g) => g.number).join("+")}
-                  match={m}
-                  rank={i + 1}
-                  targetHex={targetHex}
-                />
-              ))}
-            </ul>
-          )}
-        </section>
+        <ResultsPanel matches={matches} targetHex={targetHex} />
       </main>
 
       <footer className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
@@ -326,14 +294,125 @@ function GelStackApp() {
   );
 }
 
+function ResultsPanel({
+  matches,
+  targetHex,
+}: {
+  matches: Match[];
+  targetHex: string;
+}) {
+  const { isFavorite, toggle } = useFavorites();
+  const [sortMode, setSortMode] = useState<"accuracy" | "favorites">("accuracy");
+
+  // Favorites among current matches (auto-removed when no longer present)
+  const favoriteMatches = useMemo(
+    () => matches.filter((m) => isFavorite(favoriteKey(m.gels.map((g) => g.number)))),
+    [matches, isFavorite],
+  );
+
+  const orderedMatches = useMemo(() => {
+    if (sortMode === "favorites") {
+      const favSet = new Set(favoriteMatches.map((m) => favoriteKey(m.gels.map((g) => g.number))));
+      return [...matches].sort((a, b) => {
+        const af = favSet.has(favoriteKey(a.gels.map((g) => g.number))) ? 0 : 1;
+        const bf = favSet.has(favoriteKey(b.gels.map((g) => g.number))) ? 0 : 1;
+        return af - bf;
+      });
+    }
+    return matches;
+  }, [matches, favoriteMatches, sortMode]);
+
+  return (
+    <section>
+      <div className="mb-4 flex items-end justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight">
+            Suggested combinations
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Ranked by ΔE accuracy with brightness penalty
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Tabs value={sortMode} onValueChange={(v) => setSortMode(v as "accuracy" | "favorites")}>
+            <TabsList className="h-8">
+              <TabsTrigger value="accuracy" className="text-xs">Accuracy</TabsTrigger>
+              <TabsTrigger value="favorites" className="text-xs">Favorites</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <Badge variant="outline" className="font-mono">
+            {matches.length}
+          </Badge>
+        </div>
+      </div>
+
+      {favoriteMatches.length > 0 && (
+        <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-amber-300/90">
+              Favorites
+            </h3>
+            <Badge variant="secondary" className="ml-auto font-mono text-xs">
+              {favoriteMatches.length}
+            </Badge>
+          </div>
+          <ul className="grid gap-3">
+            {favoriteMatches.map((m) => {
+              const key = favoriteKey(m.gels.map((g) => g.number));
+              return (
+                <ResultCard
+                  key={`fav-${key}`}
+                  match={m}
+                  rank={matches.indexOf(m) + 1}
+                  targetHex={targetHex}
+                  isFavorite
+                  onToggleFavorite={() => toggle(key)}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {matches.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-border/60 p-12 text-center text-sm text-muted-foreground">
+          No combinations found. Try increasing max stack size or adding more
+          gels to your inventory.
+        </div>
+      ) : (
+        <ul className="grid gap-3">
+          {orderedMatches.map((m) => {
+            const key = favoriteKey(m.gels.map((g) => g.number));
+            return (
+              <ResultCard
+                key={key}
+                match={m}
+                rank={matches.indexOf(m) + 1}
+                targetHex={targetHex}
+                isFavorite={isFavorite(key)}
+                onToggleFavorite={() => toggle(key)}
+              />
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
 function ResultCard({
   match,
   rank,
   targetHex,
+  isFavorite,
+  onToggleFavorite,
 }: {
   match: Match;
   rank: number;
   targetHex: string;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }) {
   const { gels, resultHex, deltaE, brightness } = match;
   const lightLossPct = Math.round((1 - brightness) * 100);
@@ -345,7 +424,12 @@ function ResultCard({
         : { label: "Approximate", tone: "text-orange-400" };
 
   return (
-    <li className="rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-primary/40">
+    <li
+      className={cn(
+        "rounded-xl border bg-card p-4 transition-colors hover:border-primary/40",
+        isFavorite ? "border-amber-500/40" : "border-border/60",
+      )}
+    >
       <div className="flex items-stretch gap-4">
         {/* Rank */}
         <div className="flex w-10 flex-col items-center justify-center rounded-md bg-muted/40 font-mono text-sm">
@@ -410,6 +494,24 @@ function ResultCard({
             />
           </div>
         </div>
+
+        {/* Favorite */}
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-pressed={isFavorite}
+          className={cn(
+            "flex h-9 w-9 shrink-0 items-center justify-center self-start rounded-md border transition-colors",
+            isFavorite
+              ? "border-amber-500/40 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"
+              : "border-border/60 text-muted-foreground hover:border-amber-500/40 hover:text-amber-400",
+          )}
+        >
+          <Star
+            className={cn("h-4 w-4", isFavorite && "fill-amber-400")}
+          />
+        </button>
       </div>
     </li>
   );
