@@ -357,6 +357,12 @@ function ResultsPanel({
           <p className="text-sm text-muted-foreground">
             Ranked by ΔE accuracy with brightness penalty
           </p>
+          {inventoryActive && (
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-2.5 py-0.5 text-[11px] text-emerald-300/90">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              Filtered by your inventory
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <Tabs value={sortMode} onValueChange={(v) => setSortMode(v as "accuracy" | "favorites")}>
