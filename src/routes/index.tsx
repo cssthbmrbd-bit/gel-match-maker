@@ -302,7 +302,11 @@ function GelStackApp() {
         </section>
 
         {/* Right: results */}
-        <ResultsPanel matches={matches} targetHex={targetHex} />
+        <ResultsPanel
+          matches={matches}
+          targetHex={targetHex}
+          inventoryActive={inventoryActive}
+        />
       </main>
 
       <footer className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
