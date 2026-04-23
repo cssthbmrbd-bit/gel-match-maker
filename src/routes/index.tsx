@@ -32,8 +32,15 @@ function GelStackApp() {
   const [targetGelNum, setTargetGelNum] = useState<string>("106");
   const [customHex, setCustomHex] = useState<string>("#e10a17");
   const [maxStack, setMaxStack] = useState<1 | 2 | 3>(2);
-  const [advanced, setAdvanced] = useState(false);
-  const [inventory, setInventory] = useState<Set<string>>(new Set());
+  const {
+    inventory,
+    setInventory,
+    toggle: toggleInventory,
+    clear: clearInventory,
+    addMany: addManyInventory,
+    mode: inventoryMode,
+    setMode: setInventoryMode,
+  } = useInventory();
   const [search, setSearch] = useState("");
 
   const targetHex = useMemo(() => {
