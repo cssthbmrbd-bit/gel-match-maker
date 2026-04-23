@@ -76,7 +76,7 @@ function GelStackApp() {
             />
             <div>
               <h1 className="text-lg font-semibold tracking-tight">
-                LightMix Pro
+                Lighting Gel Combiner
               </h1>
               <p className="text-xs text-muted-foreground">
                 Lee Filters combination finder · subtractive stacking
