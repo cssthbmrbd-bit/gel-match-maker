@@ -37,7 +37,6 @@ function GelStackApp() {
     setInventory,
     toggle: toggleInventory,
     clear: clearInventory,
-    addMany: addManyInventory,
     mode: inventoryMode,
     setMode: setInventoryMode,
   } = useInventory();
