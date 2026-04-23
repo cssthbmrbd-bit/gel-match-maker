@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { Star } from "lucide-react";
 import { GELS, type Gel } from "@/lib/gels";
 import { findMatches, type Match } from "@/lib/matcher";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { useFavorites, favoriteKey } from "@/hooks/use-favorites";
 
 export const Route = createFileRoute("/")({
   component: GelStackApp,
