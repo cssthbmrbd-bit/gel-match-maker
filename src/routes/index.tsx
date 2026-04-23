@@ -206,90 +206,99 @@ function GelStackApp() {
               </div>
 
               <div className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 p-3">
-                <div>
-                  <Label className="text-sm">Advanced mode</Label>
+                <div className="min-w-0 pr-3">
+                  <Label className="text-sm">Use only my gels</Label>
                   <p className="text-xs text-muted-foreground">
-                    Only suggest from your stock
+                    Filter suggestions to your inventory
                   </p>
+                  {inventoryMode && inventory.size === 0 && (
+                    <p className="mt-1 text-xs text-amber-400">
+                      No gels selected. Showing all combinations.
+                    </p>
+                  )}
                 </div>
-                <Switch checked={advanced} onCheckedChange={setAdvanced} />
+                <Switch
+                  checked={inventoryMode}
+                  onCheckedChange={setInventoryMode}
+                />
               </div>
             </div>
           </div>
 
-          {advanced && (
-            <div className="rounded-xl border border-border/60 bg-card p-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  My inventory
-                </h2>
-                <Badge variant="secondary" className="font-mono">
-                  {inventory.size}
-                </Badge>
-              </div>
-              <Input
-                placeholder="Search gels…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="mt-3"
-              />
-              <div className="mt-2 flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() =>
-                    setInventory(new Set(filteredGels.map((g) => g.number)))
-                  }
-                >
-                  Select all
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setInventory(new Set())}
-                >
-                  Clear
-                </Button>
-              </div>
-              <ScrollArea className="mt-3 h-72 rounded-md border border-border/60">
-                <ul className="divide-y divide-border/40">
-                  {filteredGels.map((g) => {
-                    const checked = inventory.has(g.number);
-                    return (
-                      <li
-                        key={g.number}
-                        className="flex items-center gap-3 px-3 py-2 hover:bg-muted/30"
-                      >
-                        <Checkbox
-                          id={`inv-${g.number}`}
-                          checked={checked}
-                          onCheckedChange={(v) => {
-                            const next = new Set(inventory);
-                            if (v) next.add(g.number);
-                            else next.delete(g.number);
-                            setInventory(next);
-                          }}
-                        />
-                        <span
-                          className="h-5 w-5 rounded-sm border border-border/60"
-                          style={{ backgroundColor: g.hex }}
-                        />
-                        <label
-                          htmlFor={`inv-${g.number}`}
-                          className="flex-1 cursor-pointer text-sm"
-                        >
-                          <span className="font-mono text-xs text-muted-foreground">
-                            L{g.number}
-                          </span>{" "}
-                          {g.name}
-                        </label>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </ScrollArea>
+          <div className="rounded-xl border border-border/60 bg-card p-5">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                My gels
+              </h2>
+              <Badge variant="secondary" className="font-mono">
+                {inventory.size}
+              </Badge>
             </div>
-          )}
+            <Input
+              placeholder="Search gels…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="mt-3"
+            />
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => addManyInventory(COMMON_GELS)}
+              >
+                Common gels
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setInventory(new Set(filteredGels.map((g) => g.number)))
+                }
+              >
+                Select all
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={clearInventory}
+                disabled={inventory.size === 0}
+              >
+                Clear
+              </Button>
+            </div>
+            <ScrollArea className="mt-3 h-72 rounded-md border border-border/60">
+              <ul className="divide-y divide-border/40">
+                {filteredGels.map((g) => {
+                  const checked = inventory.has(g.number);
+                  return (
+                    <li
+                      key={g.number}
+                      className="flex items-center gap-3 px-3 py-3 hover:bg-muted/30"
+                    >
+                      <Checkbox
+                        id={`inv-${g.number}`}
+                        checked={checked}
+                        onCheckedChange={() => toggleInventory(g.number)}
+                      />
+                      <span
+                        className="h-5 w-5 rounded-sm border border-border/60"
+                        style={{ backgroundColor: g.hex }}
+                      />
+                      <label
+                        htmlFor={`inv-${g.number}`}
+                        className="flex-1 cursor-pointer text-sm"
+                      >
+                        <span className="font-mono text-xs text-muted-foreground">
+                          L{g.number}
+                        </span>{" "}
+                        {g.name}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </ScrollArea>
+          </div>
         </section>
 
         {/* Right: results */}
