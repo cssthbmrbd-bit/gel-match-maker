@@ -244,13 +244,6 @@ function GelStackApp() {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => addManyInventory(COMMON_GELS)}
-              >
-                Common gels
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
                 onClick={() =>
                   setInventory(new Set(filteredGels.map((g) => g.number)))
                 }
