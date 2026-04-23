@@ -320,9 +320,11 @@ function GelStackApp() {
 function ResultsPanel({
   matches,
   targetHex,
+  inventoryActive,
 }: {
   matches: Match[];
   targetHex: string;
+  inventoryActive: boolean;
 }) {
   const { isFavorite, toggle } = useFavorites();
   const [sortMode, setSortMode] = useState<"accuracy" | "favorites">("accuracy");
