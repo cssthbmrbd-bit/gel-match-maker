@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { useNativeBootstrap } from "../hooks/use-native-bootstrap";
 
 function NotFoundComponent() {
   return (
@@ -85,5 +86,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  useNativeBootstrap();
   return <Outlet />;
 }
