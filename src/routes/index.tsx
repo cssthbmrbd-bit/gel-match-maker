@@ -21,7 +21,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { useFavorites, favoriteKey } from "@/hooks/use-favorites";
-import { useInventory, COMMON_GELS } from "@/hooks/use-inventory";
+import { useInventory } from "@/hooks/use-inventory";
 
 export const Route = createFileRoute("/")({
   component: GelStackApp,
@@ -37,7 +37,6 @@ function GelStackApp() {
     setInventory,
     toggle: toggleInventory,
     clear: clearInventory,
-    addMany: addManyInventory,
     mode: inventoryMode,
     setMode: setInventoryMode,
   } = useInventory();
@@ -241,13 +240,6 @@ function GelStackApp() {
               className="mt-3"
             />
             <div className="mt-2 flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => addManyInventory(COMMON_GELS)}
-              >
-                Common gels
-              </Button>
               <Button
                 size="sm"
                 variant="outline"
