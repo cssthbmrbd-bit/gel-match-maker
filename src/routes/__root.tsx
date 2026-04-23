@@ -29,13 +29,13 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "LightMix Pro — Lee Filters Combination Finder" },
+      { title: "Lighting Gel Combiner — Lee Filters Combination Finder" },
       {
         name: "description",
         content:
-          "LightMix Pro: find practical Lee Filters gel combinations that approximate any target color. Subtractive stacking simulator for theatre lighting technicians.",
+          "Lighting Gel Combiner: find practical Lee Filters gel combinations that approximate any target color. Subtractive stacking simulator for theatre lighting technicians.",
       },
-      { property: "og:title", content: "LightMix Pro — Lee Filters Combination Finder" },
+      { property: "og:title", content: "Lighting Gel Combiner — Lee Filters Combination Finder" },
       {
         property: "og:description",
         content:
@@ -43,7 +43,7 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "LightMix Pro — Lee Filters Combination Finder" },
+      { name: "twitter:title", content: "Lighting Gel Combiner — Lee Filters Combination Finder" },
       { name: "description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
       { property: "og:description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
       { name: "twitter:description", content: "Find the best replacement for missing lighting gels by combining the ones you already have." },
