@@ -22,6 +22,13 @@ import {
 import { routeTree } from "./routeTree.gen";
 import { useNativeBootstrap } from "./hooks/use-native-bootstrap";
 
+// The root route defines a `shellComponent` that renders <html>/<body> for
+// TanStack Start SSR. In the SPA build we mount inside an existing <body>,
+// so we strip the shell to avoid producing a nested <html> inside #root.
+// The same trick neutralizes the SSR-only <Scripts /> tag.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(routeTree.options as any).shellComponent = undefined;
+
 const router = createRouter({
   routeTree,
   history: createMemoryHistory({ initialEntries: ["/"] }),
