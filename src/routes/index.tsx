@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Star } from "lucide-react";
+import appIcon from "@/assets/app-icon.png";
 import { GELS, type Gel } from "@/lib/gels";
 import { findMatches, type Match } from "@/lib/matcher";
 import { Input } from "@/components/ui/input";
@@ -82,14 +83,7 @@ function GelStackApp() {
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div
-              className="h-9 w-9 rounded-md"
-              style={{
-                background:
-                  "linear-gradient(135deg,#e10a17 0%,#fbb000 50%,#0078d6 100%)",
-              }}
-              aria-hidden
-            />
+            <AppIcon />
             <div>
               <h1 className="text-lg font-semibold tracking-tight">
                 Lighting Gel Combiner
@@ -599,5 +593,29 @@ function Stat({
         </div>
       )}
     </div>
+  );
+}
+
+function AppIcon() {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-[11px] font-semibold tracking-wider text-foreground"
+        aria-label="Lighting Gel Combiner"
+      >
+        LGC
+      </div>
+    );
+  }
+  return (
+    <img
+      src={appIcon}
+      alt="Lighting Gel Combiner"
+      onError={() => setFailed(true)}
+      className="h-9 w-9 rounded-lg object-contain"
+      width={36}
+      height={36}
+    />
   );
 }
