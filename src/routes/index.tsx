@@ -50,6 +50,7 @@ function GelStackApp() {
   }, [mode, targetGelNum, customHex]);
 
   const inventoryActive = inventoryMode && inventory.size > 0;
+  const excludeGelNumber = mode === "gel" ? targetGelNum : null;
 
   const matches = useMemo<Match[]>(() => {
     const inv = inventoryActive ? Array.from(inventory) : null;
@@ -58,9 +59,10 @@ function GelStackApp() {
       targetHex: mode === "custom" ? targetHex : undefined,
       maxStack,
       inventory: inv,
+      excludeGelNumber,
       topN: 12,
     });
-  }, [mode, targetGelNum, targetHex, maxStack, inventoryActive, inventory]);
+  }, [mode, targetGelNum, targetHex, maxStack, inventoryActive, inventory, excludeGelNumber]);
 
   const filteredGels = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -298,6 +300,7 @@ function GelStackApp() {
           matches={matches}
           targetHex={targetHex}
           inventoryActive={inventoryActive}
+          targetExcluded={mode === "gel"}
         />
       </main>
 
@@ -313,10 +316,12 @@ function ResultsPanel({
   matches,
   targetHex,
   inventoryActive,
+  targetExcluded,
 }: {
   matches: Match[];
   targetHex: string;
   inventoryActive: boolean;
+  targetExcluded: boolean;
 }) {
   const { isFavorite, toggle } = useFavorites();
   const [sortMode, setSortMode] = useState<"accuracy" | "favorites">("accuracy");
@@ -353,6 +358,11 @@ function ResultsPanel({
             <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-2.5 py-0.5 text-[11px] text-emerald-300/90">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               Filtered by your inventory
+            </div>
+          )}
+          {targetExcluded && (
+            <div className="mt-2 ml-2 inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/40 px-2.5 py-0.5 text-[11px] text-muted-foreground">
+              Target gel is excluded from suggestions
             </div>
           )}
         </div>
@@ -400,8 +410,9 @@ function ResultsPanel({
 
       {matches.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border/60 p-12 text-center text-sm text-muted-foreground">
-          No combinations found. Try increasing max stack size or adding more
-          gels to your inventory.
+          {targetExcluded
+            ? "No combinations found without using the target gel. Try increasing max stack size or adding more gels to your inventory."
+            : "No combinations found. Try increasing max stack size or adding more gels to your inventory."}
         </div>
       ) : (
         <ul className="grid gap-3">
