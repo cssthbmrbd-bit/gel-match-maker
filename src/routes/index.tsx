@@ -595,3 +595,27 @@ function Stat({
     </div>
   );
 }
+
+function AppIcon() {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-[11px] font-semibold tracking-wider text-foreground"
+        aria-label="Lighting Gel Combiner"
+      >
+        LGC
+      </div>
+    );
+  }
+  return (
+    <img
+      src={appIcon}
+      alt="Lighting Gel Combiner"
+      onError={() => setFailed(true)}
+      className="h-9 w-9 rounded-lg object-contain"
+      width={36}
+      height={36}
+    />
+  );
+}
