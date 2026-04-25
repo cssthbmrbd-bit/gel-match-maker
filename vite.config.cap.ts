@@ -14,15 +14,35 @@
  * to produce the offline SPA bundle, then `npx cap sync` to copy it into
  * the native iOS / Android projects.
  */
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import path from "node:path";
+import fs from "node:fs";
+
+/**
+ * Renames `dist/cap/index.cap.html` -> `dist/cap/index.html` after the
+ * build, so Capacitor can find its WebView entry at the conventional path.
+ */
+function renameCapHtml(): Plugin {
+  return {
+    name: "rename-cap-html",
+    apply: "build",
+    closeBundle() {
+      const outDir = path.resolve(__dirname, "dist/cap");
+      const from = path.join(outDir, "index.cap.html");
+      const to = path.join(outDir, "index.html");
+      if (fs.existsSync(from)) {
+        if (fs.existsSync(to)) fs.unlinkSync(to);
+        fs.renameSync(from, to);
+      }
+    },
+  };
+}
 
 export default defineConfig({
-  configFile: false as never, // ignored at type level; ensures no auto-merge
   root: ".",
   publicDir: "public",
   resolve: {
@@ -41,6 +61,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     tsconfigPaths(),
+    renameCapHtml(),
   ],
   build: {
     outDir: "dist/cap",
@@ -48,9 +69,7 @@ export default defineConfig({
     target: "es2020",
     sourcemap: false,
     rollupOptions: {
-      input: {
-        index: path.resolve(__dirname, "index.cap.html"),
-      },
+      input: path.resolve(__dirname, "index.cap.html"),
     },
   },
 });
