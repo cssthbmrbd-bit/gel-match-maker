@@ -6,14 +6,18 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * The app is fully offline — no APIs, no remote assets. All gel data is
  * bundled in `src/lib/gels.ts`; favorites + inventory live in localStorage.
  *
- * `webDir` points at the Vite client build output. After running
- * `npm run build`, run `npx cap sync` to copy that build into the native
- * iOS/Android projects.
+ * `webDir` points at the SPA build output produced by:
+ *   npm run cap:build      (which runs vite with vite.config.cap.ts)
+ *
+ * That build produces a static `index.html` plus hashed assets in
+ * `dist/cap/` — no Worker, no SSR, no server runtime. After building,
+ * run `npx cap sync` to copy the bundle into the native iOS/Android
+ * projects.
  */
 const config: CapacitorConfig = {
   appId: "com.sestak.gelcalculator",
   appName: "Lighting Gel Combiner",
-  webDir: "dist/client",
+  webDir: "dist/cap",
   backgroundColor: "#1a1714",
   ios: {
     contentInset: "always",

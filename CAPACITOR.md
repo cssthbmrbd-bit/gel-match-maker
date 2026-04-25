@@ -20,10 +20,19 @@ no CDNs. All gel data is bundled. Favorites and inventory live in
    cd <your-repo>
    npm install
    ```
-3. Build the web app:
+3. Build the **offline SPA bundle** (this is the one Capacitor wraps):
    ```bash
-   npm run build
+   npm run cap:build
    ```
+   This runs `vite build --config vite.config.cap.ts` and produces a fully
+   static SPA in `dist/cap/` — a single `index.html` plus hashed JS/CSS
+   assets. No SSR, no Worker, no server runtime is required.
+
+   > Do **not** run `npm run build` for Capacitor — that command produces the
+   > TanStack Start SSR build (`dist/server/` + `dist/client/`) used for the
+   > Lovable web deploy, which needs a Cloudflare Worker at runtime and is
+   > **not** suitable for an offline WebView.
+
 4. Add the native platforms (only needed once):
    ```bash
    npx cap add ios
@@ -38,11 +47,11 @@ no CDNs. All gel data is bundled. Favorites and inventory live in
 Whenever you edit the app and want to test it on device:
 
 ```bash
-npm run build
+npm run cap:build
 npx cap sync
 ```
 
-`cap sync` copies the new `dist/client` build into both native projects
+`cap sync` copies the new `dist/cap` build into both native projects
 and updates plugin bindings.
 
 ---
@@ -143,9 +152,9 @@ Airplane mode → app keeps working.
 
 ## 9. Troubleshooting
 
-- **White screen on launch** → run `npm run build` before `npx cap sync`.
-- **`webDir not found`** → make sure `dist/client` exists; that's the
-  TanStack Start client build output.
+- **White screen on launch** → run `npm run cap:build` before `npx cap sync`.
+- **`webDir not found`** → make sure `dist/cap/index.html` exists; that's the
+  static SPA bundle the WebView loads.
 - **iOS build fails on M-series Macs** → in Xcode, Build Settings →
   Excluded Architectures → Any iOS Simulator SDK → add `arm64`.
 - **Status bar overlaps content** → the config sets `overlaysWebView: false`;
