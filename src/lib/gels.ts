@@ -1,5 +1,5 @@
-// AUTO-GENERATED from Lee Filters official folder.
-// Source: leefilters_folder.pdf — Y%, x, y are CIE 1931 chromaticity
+// Lighting gel filter library.
+// Y%, x, y are CIE 1931 chromaticity measurements.
 // measurements. HEX is reconstructed from (x, y, Y) -> sRGB (D65).
 //
 // Fields:
