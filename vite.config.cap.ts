@@ -48,7 +48,9 @@ export default defineConfig({
     target: "es2020",
     sourcemap: false,
     rollupOptions: {
-      input: path.resolve(__dirname, "index.cap.html"),
+      input: {
+        index: path.resolve(__dirname, "index.cap.html"),
+      },
     },
   },
 });
