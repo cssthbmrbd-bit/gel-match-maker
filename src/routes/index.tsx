@@ -92,7 +92,7 @@ function GelStackApp() {
                 Lighting Gel Combiner
               </h1>
               <p className="text-xs text-muted-foreground">
-                Lee Filters combination finder · subtractive stacking
+                Lighting gel combination finder · subtractive stacking
               </p>
             </div>
           </div>
