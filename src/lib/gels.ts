@@ -1,5 +1,5 @@
-// AUTO-GENERATED from Lee Filters official folder.
-// Source: leefilters_folder.pdf — Y%, x, y are CIE 1931 chromaticity
+// Lighting gel filter library.
+// Y%, x, y are CIE 1931 chromaticity measurements.
 // measurements. HEX is reconstructed from (x, y, Y) -> sRGB (D65).
 //
 // Fields:
@@ -75,7 +75,7 @@ export const GELS: Gel[] = [
   { number: "118", name: "Light Blue", hex: "#007aff", y: 22.2, x: 0.149, yCoord: 0.113, desc: "Strong night effect" },
   { number: "119", name: "Dark Blue", hex: "#0000b9", y: 3.1, x: 0.142, yCoord: 0.054, desc: "Mood effects, jazz clubs, etc - back projection - travelling" },
   { number: "120", name: "Deep Blue", hex: "#2600b5", y: 1.1, x: 0.149, yCoord: 0.021, desc: "Pleasing effect for theatrical lighting" },
-  { number: "121", name: "Lee Green", hex: "#55ee58", y: 64.0, x: 0.302, yCoord: 0.534, desc: "Cycloramas" },
+  { number: "121", name: "Green", hex: "#55ee58", y: 64.0, x: 0.302, yCoord: 0.534, desc: "Cycloramas" },
   { number: "122", name: "Fern Green", hex: "#00e265", y: 51.5, x: 0.234, yCoord: 0.543, desc: "Cycloramas - good for mood effect" },
   { number: "124", name: "Dark Green", hex: "#00bc59", y: 29.7, x: 0.123, yCoord: 0.586, desc: "Cycloramas - good for back lighting" },
   { number: "126", name: "Mauve", hex: "#88009c", y: 4.1, x: 0.287, yCoord: 0.082, desc: "Cycloramas - good for back lighting" },
@@ -147,21 +147,21 @@ export const GELS: Gel[] = [
   { number: "212", name: "L.C.T. Yellow", hex: "#fbf2d0", y: 88.7, x: 0.34, yCoord: 0.363, desc: "(Y1) Reduces colour temperature of low carbon arcs to 3200K" },
   { number: "213", name: "White Flame Green", hex: "#daedd1", y: 80.0, x: 0.317, yCoord: 0.359, desc: "White Flame Corrects white flame carbon arcs by" },
   { number: "218", name: "Eighth C.T. Blue", hex: "#e7e7fd", y: 81.3, x: 0.299, yCoord: 0.307, desc: "Eighth C.T.B.   Converts tungsten to daylight" },
-  { number: "219", name: "Lee Fluorescent Green", hex: "#00aaa7", y: 31.0, x: 0.219, yCoord: 0.334, desc: "Lee Fluorescent   General tungsten to fluorescent correction for use when" },
+  { number: "219", name: "Fluorescent Green", hex: "#00aaa7", y: 31.0, x: 0.219, yCoord: 0.334, desc: "Fluorescent   General tungsten to fluorescent correction for use when" },
   { number: "223", name: "Eighth C.T. Orange", hex: "#fdeae7", y: 85.2, x: 0.328, yCoord: 0.332, desc: "Eighth C.T.O. Converts daylight to tungsten light" },
-  { number: "226", name: "Lee U.V.", hex: "#fcf3fb", y: 91.5, x: 0.314, yCoord: 0.321, desc: "Lee UV Transmission of  less than 50% at 410nms" },
+  { number: "226", name: "U.V.", hex: "#fcf3fb", y: 91.5, x: 0.314, yCoord: 0.321, desc: "UV Transmission of  less than 50% at 410nms" },
   { number: "230", name: "Super Correction L.C.T.", hex: "#c5a88b", y: 41.9, x: 0.367, yCoord: 0.368, desc: "Super Correction Converts yellow carbon arc (of low colour temperature)" },
   { number: "232", name: "Super White Flame", hex: "#d5976a", y: 37.4, x: 0.423, yCoord: 0.385, desc: "Super Correction W.F.Converts white flame arc to 3200K, for use with tungsten film" },
   { number: "236", name: "HMI to Tungsten", hex: "#ffb687", y: 58.2, x: 0.426, yCoord: 0.376, desc: "HMI (to Tungsten) Converts HMI to 3200K, for use with Tungsten film" },
   { number: "237", name: "C.I.D. to Tungsten", hex: "#e39374", y: 38.5, x: 0.43, yCoord: 0.365, desc: "CID (to Tungsten) Converts CID to 3200K, for use with tungsten film" },
   { number: "238", name: "C.S.I. to Tungsten", hex: "#ba8887", y: 29.8, x: 0.372, yCoord: 0.331, desc: "CSI (to Tungsten) Converts CSI to 3200K, for use with tungsten film" },
-  { number: "241", name: "Lee Fluorescent 5700 K", hex: "#469ab0", y: 27.4, x: 0.231, yCoord: 0.29, desc: "Lee Fluorescent Converts tungsten to fluorescent light of 5700K" },
-  { number: "242", name: "Lee Fluorescent 4300 K", hex: "#65b2a7", y: 37.3, x: 0.262, yCoord: 0.346, desc: "Lee Fluorescent Converts tungsten to fluorescent light of 4300K (white)" },
-  { number: "243", name: "Lee Fluorescent 3600 K", hex: "#84c1a5", y: 45.7, x: 0.286, yCoord: 0.37, desc: "Lee Fluorescent Converts tungsten to fluorescent light of 3600K (warm white)." },
-  { number: "244", name: "Lee Plus Green", hex: "#cae9b6", y: 74.2, x: 0.324, yCoord: 0.388, desc: "Approximately equivalent to CC30 green" },
+  { number: "241", name: "Fluorescent 5700 K", hex: "#469ab0", y: 27.4, x: 0.231, yCoord: 0.29, desc: "Fluorescent Converts tungsten to fluorescent light of 5700K" },
+  { number: "242", name: "Fluorescent 4300 K", hex: "#65b2a7", y: 37.3, x: 0.262, yCoord: 0.346, desc: "Fluorescent Converts tungsten to fluorescent light of 4300K (white)" },
+  { number: "243", name: "Fluorescent 3600 K", hex: "#84c1a5", y: 45.7, x: 0.286, yCoord: 0.37, desc: "Fluorescent Converts tungsten to fluorescent light of 3600K (warm white)." },
+  { number: "244", name: "Plus Green", hex: "#cae9b6", y: 74.2, x: 0.324, yCoord: 0.388, desc: "Approximately equivalent to CC30 green" },
   { number: "245", name: "Half Plus Green", hex: "#e0eed5", y: 81.7, x: 0.319, yCoord: 0.355, desc: "Approximately equivalent to CC15 green" },
   { number: "246", name: "Quarter Plus Green", hex: "#eaeee6", y: 84.6, x: 0.315, yCoord: 0.337, desc: "Quarter Plus Approximately equivalent to CC075 green" },
-  { number: "247", name: "Lee Minus Green", hex: "#f2b6e5", y: 57.8, x: 0.325, yCoord: 0.279, desc: "Approximately equivalent to CC30 magenta" },
+  { number: "247", name: "Minus Green", hex: "#f2b6e5", y: 57.8, x: 0.325, yCoord: 0.279, desc: "Approximately equivalent to CC30 magenta" },
   { number: "248", name: "Half Minus Green", hex: "#f5d2f2", y: 72.0, x: 0.317, yCoord: 0.297, desc: "Approximately equivalent to CC15 magenta" },
   { number: "249", name: "Quarter Minus Green", hex: "#f8e4fa", y: 82.4, x: 0.312, yCoord: 0.307, desc: "Quarter Minus Approximately equivalent to CC075 magenta" },
   { number: "278", name: "Eighth Plus Green", hex: "#f2f0f2", y: 87.7, x: 0.313, yCoord: 0.327, desc: "Provides very slight green cast" },
@@ -214,7 +214,7 @@ export const GELS: Gel[] = [
   { number: "748", name: "Seedy Pink", hex: "#9e5079", y: 14.4, x: 0.373, yCoord: 0.263, desc: "A smoky pink. Good for tungsten on skin tones" },
   { number: "763", name: "Wheat", hex: "#fceacf", y: 84.3, x: 0.343, yCoord: 0.357, desc: "Adds warmth, sunlight" },
   { number: "764", name: "Sun Colour Straw", hex: "#ffe5b3", y: 80.5, x: 0.365, yCoord: 0.38, desc: "Adds warmth, bright sunlight" },
-  { number: "765", name: "Lee Yellow", hex: "#ffe592", y: 80.2, x: 0.389, yCoord: 0.412, desc: "Useful for producing a strong sunlight effect" },
+  { number: "765", name: "Yellow", hex: "#ffe592", y: 80.2, x: 0.389, yCoord: 0.412, desc: "Useful for producing a strong sunlight effect" },
   { number: "767", name: "Oklahoma Yellow", hex: "#ffd300", y: 68.9, x: 0.481, yCoord: 0.501, desc: "A rich blend of bright sunshine and warm ochre overtones" },
   { number: "770", name: "Burnt Yellow", hex: "#ff9c00", y: 47.7, x: 0.545, yCoord: 0.447, desc: "A colour that feels warm and dense on camera, a balance" },
   { number: "774", name: "Soft Amber Key 1", hex: "#ffd0bd", y: 70.6, x: 0.366, yCoord: 0.348, desc: "Soft Amber Used for producing a warm key light colour" },

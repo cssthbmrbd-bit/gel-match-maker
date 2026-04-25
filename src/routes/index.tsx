@@ -67,9 +67,12 @@ function GelStackApp() {
   const filteredGels = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return GELS;
+    const qStripped = q.replace(/^l/, "");
     return GELS.filter(
       (g) =>
-        g.number.includes(q) || g.name.toLowerCase().includes(q),
+        g.number.includes(qStripped) ||
+        `l${g.number}`.includes(q) ||
+        g.name.toLowerCase().includes(q),
     );
   }, [search]);
 
@@ -92,7 +95,7 @@ function GelStackApp() {
                 Lighting Gel Combiner
               </h1>
               <p className="text-xs text-muted-foreground">
-                Lee Filters combination finder · subtractive stacking
+                Lighting gel combination finder · subtractive stacking
               </p>
             </div>
           </div>
@@ -116,13 +119,13 @@ function GelStackApp() {
               className="mt-4"
             >
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="gel">Lee gel</TabsTrigger>
+                <TabsTrigger value="gel">From library</TabsTrigger>
                 <TabsTrigger value="custom">Custom color</TabsTrigger>
               </TabsList>
 
               <TabsContent value="gel" className="mt-4">
                 <Label className="text-xs text-muted-foreground">
-                  Choose a Lee filter to recreate
+                  Choose a filter to recreate
                 </Label>
                 <Select value={targetGelNum} onValueChange={setTargetGelNum}>
                   <SelectTrigger className="mt-2">
@@ -305,8 +308,8 @@ function GelStackApp() {
       </main>
 
       <footer className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Approximate subtractive color math · designed to upgrade to spectral
-        data later
+        <div>Approximate subtractive color math · designed to upgrade to spectral data later</div>
+        <div className="mt-1 opacity-70">This app is not affiliated with any manufacturer.</div>
       </footer>
     </div>
   );

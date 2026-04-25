@@ -27,9 +27,9 @@ export type Match = {
 };
 
 export type MatcherOptions = {
-  /** Target as a Lee gel number, when matching a Lee color directly. */
+  /** Target as a gel number from the library, when matching a catalog color directly. */
   targetGelNumber?: string;
-  /** Target as a custom HEX (sRGB), when no Lee gel applies. */
+  /** Target as a custom HEX (sRGB), when no catalog gel applies. */
   targetHex?: string;
   maxStack: 1 | 2 | 3;
   inventory?: string[] | null;
