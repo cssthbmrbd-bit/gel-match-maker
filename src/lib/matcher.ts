@@ -33,6 +33,8 @@ export type MatcherOptions = {
   targetHex?: string;
   maxStack: 1 | 2 | 3;
   inventory?: string[] | null;
+  /** Gel number to exclude from the pool (e.g. the target gel). */
+  excludeGelNumber?: string | null;
   minBrightness?: number;
   topN?: number;
 };
@@ -52,12 +54,16 @@ function resolveTargetLinear(opts: MatcherOptions): RGB {
 }
 
 export function findMatches(opts: MatcherOptions): Match[] {
-  const { maxStack, inventory, minBrightness = 0.005, topN = 12 } = opts;
+  const { maxStack, inventory, excludeGelNumber, minBrightness = 0.005, topN = 12 } = opts;
 
-  const pool: Gel[] =
+  let pool: Gel[] =
     inventory && inventory.length > 0
       ? GELS.filter((g) => inventory.includes(g.number))
       : GELS;
+
+  if (excludeGelNumber) {
+    pool = pool.filter((g) => g.number !== excludeGelNumber);
+  }
 
   const targetLinear = resolveTargetLinear(opts);
   const targetLab = linearToLab(targetLinear);
