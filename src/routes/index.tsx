@@ -410,8 +410,9 @@ function ResultsPanel({
 
       {matches.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border/60 p-12 text-center text-sm text-muted-foreground">
-          No combinations found. Try increasing max stack size or adding more
-          gels to your inventory.
+          {targetExcluded
+            ? "No combinations found without using the target gel. Try increasing max stack size or adding more gels to your inventory."
+            : "No combinations found. Try increasing max stack size or adding more gels to your inventory."}
         </div>
       ) : (
         <ul className="grid gap-3">
