@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Star } from "lucide-react";
+import appIcon from "@/assets/app-icon.png";
 import { GELS, type Gel } from "@/lib/gels";
 import { findMatches, type Match } from "@/lib/matcher";
 import { Input } from "@/components/ui/input";
