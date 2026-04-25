@@ -122,7 +122,7 @@ function GelStackApp() {
 
               <TabsContent value="gel" className="mt-4">
                 <Label className="text-xs text-muted-foreground">
-                  Choose a Lee filter to recreate
+                  Choose a filter to recreate
                 </Label>
                 <Select value={targetGelNum} onValueChange={setTargetGelNum}>
                   <SelectTrigger className="mt-2">
