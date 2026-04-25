@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 const STORAGE_KEY = "lgc.inventory.v1";
 const MODE_KEY = "lgc.inventoryMode.v1";
 
-// A small, opinionated set of commonly-stocked Lee filters used by the
+// A small, opinionated set of commonly-stocked filters used by the
 // "Select common gels" quick action. These IDs exist in src/lib/gels.ts.
 export const COMMON_GELS = [
   "026", // Bright Red
