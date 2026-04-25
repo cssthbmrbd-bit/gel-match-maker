@@ -30,13 +30,16 @@ function renameCapHtml(): Plugin {
   return {
     name: "rename-cap-html",
     apply: "build",
-    closeBundle() {
-      const outDir = path.resolve(__dirname, "dist/cap");
+    enforce: "post",
+    writeBundle(options) {
+      const outDir = options.dir ?? path.resolve(__dirname, "dist/cap");
       const from = path.join(outDir, "index.cap.html");
       const to = path.join(outDir, "index.html");
       if (fs.existsSync(from)) {
         if (fs.existsSync(to)) fs.unlinkSync(to);
         fs.renameSync(from, to);
+        // eslint-disable-next-line no-console
+        console.log(`[cap] renamed ${path.basename(from)} -> ${path.basename(to)}`);
       }
     },
   };
