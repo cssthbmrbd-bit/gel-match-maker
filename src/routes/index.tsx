@@ -67,9 +67,12 @@ function GelStackApp() {
   const filteredGels = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return GELS;
+    const qStripped = q.replace(/^l/, "");
     return GELS.filter(
       (g) =>
-        g.number.includes(q) || g.name.toLowerCase().includes(q),
+        g.number.includes(qStripped) ||
+        `l${g.number}`.includes(q) ||
+        g.name.toLowerCase().includes(q),
     );
   }, [search]);
 
