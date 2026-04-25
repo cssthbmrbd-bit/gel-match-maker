@@ -316,10 +316,12 @@ function ResultsPanel({
   matches,
   targetHex,
   inventoryActive,
+  targetExcluded,
 }: {
   matches: Match[];
   targetHex: string;
   inventoryActive: boolean;
+  targetExcluded: boolean;
 }) {
   const { isFavorite, toggle } = useFavorites();
   const [sortMode, setSortMode] = useState<"accuracy" | "favorites">("accuracy");
