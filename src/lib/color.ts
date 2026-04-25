@@ -1,4 +1,4 @@
-// Color math for gel stacking simulation, using Lee Filters' published
+// Color math for gel stacking simulation, using published
 // CIE 1931 chromaticity (x, y) and transmission Y% per gel.
 //
 // Approach:
