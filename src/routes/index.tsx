@@ -360,6 +360,11 @@ function ResultsPanel({
               Filtered by your inventory
             </div>
           )}
+          {targetExcluded && (
+            <div className="mt-2 ml-2 inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/40 px-2.5 py-0.5 text-[11px] text-muted-foreground">
+              Target gel is excluded from suggestions
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <Tabs value={sortMode} onValueChange={(v) => setSortMode(v as "accuracy" | "favorites")}>
