@@ -305,8 +305,8 @@ function GelStackApp() {
       </main>
 
       <footer className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Approximate subtractive color math · designed to upgrade to spectral
-        data later
+        <div>Approximate subtractive color math · designed to upgrade to spectral data later</div>
+        <div className="mt-1 opacity-70">This app is not affiliated with any manufacturer.</div>
       </footer>
     </div>
   );
