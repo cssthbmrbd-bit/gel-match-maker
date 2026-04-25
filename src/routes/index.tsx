@@ -300,6 +300,7 @@ function GelStackApp() {
           matches={matches}
           targetHex={targetHex}
           inventoryActive={inventoryActive}
+          targetExcluded={mode === "gel"}
         />
       </main>
 
