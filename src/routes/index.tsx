@@ -83,14 +83,7 @@ function GelStackApp() {
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div
-              className="h-9 w-9 rounded-md"
-              style={{
-                background:
-                  "linear-gradient(135deg,#e10a17 0%,#fbb000 50%,#0078d6 100%)",
-              }}
-              aria-hidden
-            />
+            <AppIcon />
             <div>
               <h1 className="text-lg font-semibold tracking-tight">
                 Lighting Gel Combiner
