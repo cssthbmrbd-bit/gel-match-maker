@@ -116,7 +116,7 @@ function GelStackApp() {
               className="mt-4"
             >
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="gel">Lee gel</TabsTrigger>
+                <TabsTrigger value="gel">From library</TabsTrigger>
                 <TabsTrigger value="custom">Custom color</TabsTrigger>
               </TabsList>
 
