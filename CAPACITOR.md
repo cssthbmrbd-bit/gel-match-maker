@@ -152,9 +152,9 @@ Airplane mode → app keeps working.
 
 ## 9. Troubleshooting
 
-- **White screen on launch** → run `npm run build` before `npx cap sync`.
-- **`webDir not found`** → make sure `dist/client` exists; that's the
-  TanStack Start client build output.
+- **White screen on launch** → run `npm run cap:build` before `npx cap sync`.
+- **`webDir not found`** → make sure `dist/cap/index.html` exists; that's the
+  static SPA bundle the WebView loads.
 - **iOS build fails on M-series Macs** → in Xcode, Build Settings →
   Excluded Architectures → Any iOS Simulator SDK → add `arm64`.
 - **Status bar overlaps content** → the config sets `overlaysWebView: false`;
