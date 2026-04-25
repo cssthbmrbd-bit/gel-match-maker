@@ -50,6 +50,7 @@ function GelStackApp() {
   }, [mode, targetGelNum, customHex]);
 
   const inventoryActive = inventoryMode && inventory.size > 0;
+  const excludeGelNumber = mode === "gel" ? targetGelNum : null;
 
   const matches = useMemo<Match[]>(() => {
     const inv = inventoryActive ? Array.from(inventory) : null;
@@ -58,9 +59,10 @@ function GelStackApp() {
       targetHex: mode === "custom" ? targetHex : undefined,
       maxStack,
       inventory: inv,
+      excludeGelNumber,
       topN: 12,
     });
-  }, [mode, targetGelNum, targetHex, maxStack, inventoryActive, inventory]);
+  }, [mode, targetGelNum, targetHex, maxStack, inventoryActive, inventory, excludeGelNumber]);
 
   const filteredGels = useMemo(() => {
     const q = search.trim().toLowerCase();
