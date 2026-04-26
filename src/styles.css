@@ -167,15 +167,28 @@
     margin: 0;
   }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
   /* Safe-area padding lives on the app shell (#root) so backgrounds still
    * paint edge-to-edge through the notch / home indicator while content
-   * stays inside the safe rectangle. */
-  #root {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+   * stays inside the safe rectangle. The +12px adds a comfortable gap
+   * between the Dynamic Island / notch and the header content. */
+  #root,
+  .app-root {
+    margin: 0;
+    padding-top: calc(env(safe-area-inset-top) + 12px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     box-sizing: border-box;
+  }
+
+  /* Avoid double safe-area padding when .app-root is nested inside #root */
+  #root > .app-root {
+    padding: 0;
   }
 
   /* Ensure tap targets meet the ~44px minimum on touch devices */
