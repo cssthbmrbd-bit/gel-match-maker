@@ -78,7 +78,7 @@ function GelStackApp() {
   }, [search]);
 
   return (
-    <div className="app-root min-h-full bg-background">
+    <div className="min-h-full bg-background">
       {/* Header */}
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">

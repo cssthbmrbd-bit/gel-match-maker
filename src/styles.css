@@ -150,20 +150,8 @@
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     box-sizing: border-box;
-    min-height: 100dvh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .app-root {
-    min-height: 100%;
-  }
-
-  @supports not (padding: env(safe-area-inset-top)) {
-    #root {
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
   }
 
   html,
